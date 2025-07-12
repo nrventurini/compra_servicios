@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-reserva VitalExtension</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #333;
+      padding: 20px;
+    }
+    .container {
+      max-width: 650px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    p.lead {
+      font-size: 1.15em;
+    }
+    label {
+      display: block;
+      margin: 12px 0 6px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .checkbox-group {
+      margin: 10px 0;
+    }
+    .checkbox-group label {
+      display: block;
+      margin-bottom: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      font-size: 1.1em;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    small {
+      display: block;
+      margin-top: 12px;
+      color: #888;
+    }
+    .counter {
+      background: #e8f5e9;
+      border-left: 5px solid #4CAF50;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎯 Promoción exclusiva de pre-reserva</h1>
+    <p class="lead">
+      Aprovecha esta oferta preferente durante la fase de prueba. Solo los primeros <strong>100 clientes</strong> accederán al precio promocional.
+    </p>
+
+    <div class="counter">
+      Quedan <span id="contador">100</span> test promocionales disponibles.
+    </div>
+
+    <form action="https://formsubmit.co/TU_EMAIL" method="POST">
+      <input type="hidden" name="_next" value="https://tuweb.com/gracias.html">
+      <input type="hidden" name="_captcha" value="false">
+
+      <label>¿Qué servicios deseas reservar?</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="Servicios[]" value="VitalExplore Start – 299 €"> VitalExplore Start – 299 €</label>
+        <label><input type="checkbox" name="Servicios[]" value="VitalExplore Active – 699 €"> VitalExplore Active – 699 €</label>
+        <label><input type="checkbox" name="Servicios[]" value="VitalExplore Deep – 1299 €"> VitalExplore Deep – 1299 €</label>
+        <label><input type="checkbox" name="Servicios[]" value="Telemedicina 1ª sesión – 129 €"> Telemedicina 1ª sesión – 129 €</label>
+        <label><input type="checkbox" name="Servicios[]" value="Telemedicina 2ª sesión – 89 €"> Telemedicina 2ª sesión – 89 €</label>
+        <label><input type="checkbox" name="Servicios[]" value="Membresía Vital+ – 19 €/mes"> Membresía Vital+ – 19 €/mes</label>
+      </div>
+
+      <label for="nombre">Nombre completo</label>
+      <input type="text" name="Nombre" id="nombre" required>
+
+      <label for="email">Correo electrónico</label>
+      <input type="email" name="Email" id="email" required>
+
+      <label for="telefono">Teléfono (WhatsApp opcional)</label>
+      <input type="tel" name="Teléfono" id="telefono" required>
+
+      <label><input type="checkbox" name="RGPD" required> Acepto ser contactado según la política de privacidad (RGPD).</label>
+
+      <button type="submit">¡Reservar ahora!</button>
+    </form>
+
+    <small>Sin compromiso. Tus datos están protegidos bajo la normativa RGPD.</small>
+  </div>
+
+  <!-- Placeholder: contador dinámico -->
+  <script>
+    // Este contador requiere conexión con backend o Google Sheets para funcionar
+    // Reemplazar este valor dinámicamente desde servidor o API externa
+    const TOTAL_DISPONIBLES = 100;
+
+    // Puedes obtener este número desde Google Sheets con Apps Script + fetch
+    document.getElementById("contador").textContent = TOTAL_DISPONIBLES;
+  </script>
+</body>
+</html>
