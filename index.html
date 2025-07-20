@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -85,10 +86,8 @@
     <div class="counter">
       Quedan <span id="contador">100</span> test promocionales disponibles.
     </div>
-    <form action="https://script.google.com/macros/s/AKfycbyHpEBK2JQKVOe3lO5SrqojzweUvyn2WOZpXRFkSBN7ItUcieydRCbLwfJYpfb6B1vO/exec" method="POST">
-      <input type="hidden" name="_next" value="https://tuweb.com/gracias.html">
-      <input type="hidden" name="_captcha" value="false">
 
+    <form action="https://script.google.com/macros/s/AKfycbyHpEBK2JQKVOe3lO5SrqojzweUvyn2WOZpXRFkSBN7ItUcieydRCbLwfJYpfb6B1vO/exec" method="POST">
       <label>¿Qué servicios deseas reservar?</label>
       <div class="checkbox-group">
         <label><input type="checkbox" name="Servicios[]" value="VitalExplore Basic – 299 €"> VitalExplore Basic – 299 €</label>
@@ -116,13 +115,8 @@
     <small>Sin compromiso. Tus datos están protegidos bajo la normativa RGPD.</small>
   </div>
 
-  <!-- Placeholder: contador dinámico -->
   <script>
-    // Este contador requiere conexión con backend o Google Sheets para funcionar
-    // Reemplazar este valor dinámicamente desde servidor o API externa
     const TOTAL_DISPONIBLES = 100;
-
-    // Puedes obtener este número desde Google Sheets con Apps Script + fetch
     document.getElementById("contador").textContent = TOTAL_DISPONIBLES;
   </script>
 </body>
