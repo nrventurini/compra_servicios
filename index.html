@@ -161,17 +161,39 @@
   </div>
 </div>
 
-
+      <!-- Formulario datos usuario -->
       <label for="nombre">Nombre completo</label>
       <input type="text" name="Nombre" id="nombre" required>
 
       <label for="email">Correo electrónico</label>
       <input type="email" name="Email" id="email" required>
 
-      <label for="telefono">Teléfono (WhatsApp opcional)</label>
-      <input type="tel" name="Teléfono" id="telefono" required>
+      <label for="telefono">Teléfono (opcional)</label>
+      <input type="tel" name="Teléfono" id="telefono">
 
-      <label><input type="checkbox" name="RGPD" required> Acepto ser contactado según la política de privacidad (RGPD).</label>
+      <!-- Checkbox RGPD -->
+      <div style="margin-top: 12px; font-size: 14px;">
+      <label for="rgpdCheck">
+      <input id="rgpdCheck" type="checkbox" name="RGPD" required />
+      Acepto la <a href="https://nrventurini.github.io/Pol-tica_privacidad/" target="_blank">política de privacidad</a>.
+      </label>
+      <p style="font-size: 13px; color: #555; margin-top: 8px;">
+      <span style="font-size: 15px;">⚖️ <strong>Compromiso VitalExtension</strong>:</span>
+      Jamás cederemos tus datos ni enviaremos spam. Solo los usaremos para contactarte según esta solicitud.
+      </p>
+      </div>
+
+
+      <!-- CAPTCHA -->
+      <div style="margin-top: 12px;">
+        <label id="captchaPregunta" style="font-size: 14px;">Cargando pregunta de seguridad...</label><br/>
+        <input id="captchaRespuesta" type="text" style="margin-top: 4px; width: 60px;" required />
+      </div>
+
+      <!-- Honeypot para bots -->
+      <input type="text" id="campoTrampa" name="campoTrampa" autocomplete="off" style="display: none;" />
+
+      
 
       <button type="submit" id="enviarBtn">
         <span id="btnText">¡Reservar ahora!</span>
@@ -194,26 +216,71 @@
   const form = document.querySelector("form");
   const enviarBtn = document.getElementById("enviarBtn");
 
-  form.addEventListener("submit", () => {
-    submitted = true;
-    enviarBtn.disabled = true;
-    document.getElementById("btnText").textContent = "Enviando...";
-    document.getElementById("spinner").style.display = "inline-block";
+  let captchaActual = { pregunta: "¿Cuánto es 2 + 2?", respuesta: "4" }; // default por si falla carga
 
-    enviarBtn.style.backgroundColor = "#999";
+const preguntasCaptcha = [
+  { pregunta: "¿Cuánto es 3 + 5?", respuesta: "8" },
+  { pregunta: "¿Cuánto es 6 - 2?", respuesta: "4" },
+  { pregunta: "¿Cuánto es 1 + 2?", respuesta: "3" },
+  { pregunta: "¿Cuánto es 5 + 2?", respuesta: "7" },
+  { pregunta: "¿Cuánto es 7 + 2?", respuesta: "9" },
+  { pregunta: "¿Cuánto es 2 x 1?", respuesta: "2" },
+  { pregunta: "¿Cuánto es 3 - 2?", respuesta: "1" },
+  { pregunta: "¿Cuánto es 10 - 5?", respuesta: "5" }
+];
 
-    // restaurar el botón en caso de fallo sin redirección (opcional)
-    setTimeout(() => {
-      if (submitted) {
-       enviarBtn.disabled = false;
-       document.getElementById("btnText").textContent = "¡Reservar ahora!";
-       document.getElementById("spinner").style.display = "none";
+window.addEventListener("DOMContentLoaded", () => {
+  captchaActual = preguntasCaptcha[Math.floor(Math.random() * preguntasCaptcha.length)];
+  document.getElementById("captchaPregunta").textContent = "Pregunta de seguridad: " + captchaActual.pregunta;
+});
 
-      }
-    }, 10000); // 10 segundos
-  });
+form.addEventListener("submit", (e) => {
+  const respuesta = document.getElementById("captchaRespuesta").value.trim();
+  const honeypot = document.getElementById("campoTrampa").value.trim();
+
+  if (honeypot !== "") {
+    alert("Detección de comportamiento automático.");
+    e.preventDefault();
+    return;
+  }
+
+  if (respuesta !== captchaActual.respuesta) {
+    alert("Respuesta incorrecta a la verificación. Intenta de nuevo.");
+    e.preventDefault();
+    return;
+  }
+
+  submitted = true;
+  enviarBtn.disabled = true;
+  document.getElementById("btnText").textContent = "Enviando...";
+  document.getElementById("spinner").style.display = "inline-block";
+  enviarBtn.style.backgroundColor = "#999";
+
+  setTimeout(() => {    // restaurar el botón en caso de fallo sin redirección (opcional)
+    if (submitted) {
+      enviarBtn.disabled = false;
+      document.getElementById("btnText").textContent = "¡Reservar ahora!";
+      document.getElementById("spinner").style.display = "none";
+    }
+  }, 10000); // 10 segundos
+});
+
 </script>
 
+  
+
+
+<script>
+  fetch("https://script.google.com/macros/s/AKfycbyHpEBK2JQKVOe3lO5SrqojzweUvyn2WOZpXRFkSBN7ItUcieydRCbLwfJYpfb6B1vO/exec")
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("contador").textContent = data.bonosRestantes;
+    })
+    .catch(error => {
+      console.error("Error al obtener el contador:", error);
+      document.getElementById("contador").textContent = "—";
+    });
+</script>
   
 
 </body>
